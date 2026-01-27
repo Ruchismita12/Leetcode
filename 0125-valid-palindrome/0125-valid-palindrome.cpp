@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
     private:
     bool valid(char ch)
 {
@@ -28,7 +28,7 @@ bool checkPallindrome(string temp)
     int e=temp.length()-1;
     while(st<=e)
     {
-        if((temp[st])!=(temp[e]))
+        if(toLowerCase(temp[st])!=toLowerCase(temp[e]))
         {
             return 0;
         }
@@ -63,9 +63,8 @@ public:
     
         
     }
-};    
-
-/*#include<string>
+};              */
+#include<string>
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -124,4 +123,4 @@ public:
         return checkPalindrome(temp);
         
     }
-};   */
+};
