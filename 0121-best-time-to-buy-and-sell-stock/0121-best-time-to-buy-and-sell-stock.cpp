@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -9,8 +11,12 @@ public:
             int diff=prices[i]-buy;
             profit=max(profit,diff);
             buy=min(buy,prices[i]);
+            
         }
+
         return profit;
+
+        
         
     }
 };
