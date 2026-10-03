@@ -1,43 +1,81 @@
+//TLE
+/*
 class Solution {
 public:
-    void solve(int index,vector<int>& candidates, int target,vector<vector<int>> &ans,vector<int> &ds)
+    void combinationSum2Recursion(vector<int>& candidates, int target, int i,vector<int> &output,set<vector<int>> &ans)
     {
-        
         if(target==0)
         {
-            sort(ds.begin(),ds.end());
-            ans.push_back(ds);
+            ans.insert(output);
             return;
         }
-        
-        for(int i=index;i<candidates.size();i++)
+        if((target < 0) || (i>=candidates.size()))
         {
-            if(i>index && candidates[i]==candidates[i-1] )
+            return;
+        }
+        //include
+        output.push_back(candidates[i]);
+        combinationSum2Recursion (candidates, target-candidates[i], i+1, output, ans);
+
+        //exclude
+        output.pop_back();
+        combinationSum2Recursion(candidates, target, i+1, output, ans);
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) 
+    {
+        set<vector<int>> ans;
+        vector<int> output;
+        sort( candidates.begin(), candidates.end());
+        combinationSum2Recursion( candidates,target,0,output, ans );
+        return vector<vector<int>>(ans.begin(),ans.end()) ;
+        
+    }
+};
+
+
+*/
+
+
+
+class Solution {
+public:
+    void combinationSum2Recursion(vector<int>& candidates, int target, int i,vector<int> &output,vector<vector<int>> &ans)
+    {
+        if(target==0)
+        {
+            ans.push_back(output);
+            return;
+        }
+        if((target < 0) || (i>=candidates.size()))
+        {
+            return;
+        }
+
+        for(int start=i;start<candidates.size();start++)
+        {
+            //Exclude using a loop based to remove TLE
+            if((start > i) && (candidates[start]==candidates[start-1]))
             {
-                continue; //skip this iteration            }
+                continue;
             }
-            if(candidates[i] > target)
+            if(candidates[start] > target)
             {
                 break;
             }
-        
-            ds.push_back(candidates[i]);
-            solve(i+1,candidates,target-candidates[i],ans,ds);
-            ds.pop_back();
-        }
-        
-    }
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target){
-        vector<vector<int>> ans;
-        //set<vector<int>> res;
-        vector<int> ds;
-        sort(candidates.begin(),candidates.end());
-        solve(0,candidates,target,ans,ds);
-        
-        return ans;
 
+            output.push_back(candidates[start]);
+            combinationSum2Recursion(candidates,target-candidates[start], start+1,output,ans);
+            output.pop_back();
+        }
+       
     }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) 
+    {
+        vector<vector<int>> ans;
+        vector<int> output;
+        sort(candidates.begin(), candidates.end());
+        combinationSum2Recursion( candidates,target,0,output, ans );
+        return ans ;
         
-        
-    
+    }
 };
